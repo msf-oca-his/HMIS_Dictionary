@@ -6,6 +6,8 @@
     "idx_Graph": "Graph",
     "idx_Admin": "Admin",
 
+    "MODULE:ALL":       "****************************",
+    "OPEN": "Open",
 
     "MODULE:DOSSIERS":  "****************************",
 
@@ -54,6 +56,8 @@
     "object_form": "Form name (datae. only)",
     "object_id": "ID",
     "object_code": "Code",
+    "object_ICD10": "ICD10",
+
 
     "srch_SelectColumns_objDescs": "Data Elements or Indicators - Descriptions",
     "object_description": "Description",
