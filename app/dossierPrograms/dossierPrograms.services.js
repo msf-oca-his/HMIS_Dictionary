@@ -2,18 +2,18 @@
     List of contributors: https://github.com/MSFOCBA
     Please refer to the LICENSE.md and LICENSES-DEP.md for complete licenses.
 ------------------------------------------------------------------------------------*/
+var qryPrograms = dhisUrl + 'programs.json?fields=id,displayName,displayDescription,programStages[id]&paging=false';
 
-var qryPrograms = dhisUrl + 'programs.json?fields=id,displayName,programStages[id]&paging=false';
-
-var qryProgramStages = dhisUrl + 'programs/:programId.json?fields=programStages[id]&paging=false';
-
-var qryProgramStageSections = dhisUrl + 'programStages/:programStageId.json?fields=programStageSections[id,displayName,programStageDataElements[dataElement[displayName,displayFormName,displayDescription,valueType,optionSetValue,optionSet[options[displayName]]]]],programStageDataElements[dataElement[displayName,displayFormName,displayDescription,valueType,optionSetValue,optionSet[options[displayName]]]&paging=false';
+var qryProgramStageSections = dhisUrl + 'programStages/:programStageId.json?fields=id,displayName,repeatable,sortOrder,programStageSections[id,displayName,dataElements[displayName,displayFormName,displayDescription,valueType,optionSetValue,optionSet[options[displayName]]]],programStageDataElements[dataElement[displayName,displayFormName,displayDescription,valueType,optionSetValue,optionSet[options[displayName]]]]&paging=false';
 
 var qryProgramIndicators = dhisUrl + 'programs/:programId.json?fields=programIndicators[displayName,displayDescription,expression,filter]';
 
 var qryProgramIndicatorExpressions = dhisUrl + 'programIndicators/expression/description'
 var qryProgramIndicatorFilters = dhisUrl + 'programIndicators/filter/description'
 
+// Only public EventReports and EventCharts
+var qryEventReports = dhisUrl + 'eventReports.json?filter=program.id\\:eq\\::programId&fields=id,displayName,displayDescription&paging=false'
+var qryEventCharts = dhisUrl + 'eventCharts.json?filter=program.id\\:eq\\::programId&fields=id,displayName,displayDescription&paging=false'
 
 dossierProgramsModule.factory('dossiersProgramsFactory', ['$resource',
     function($resource) {
@@ -39,6 +39,8 @@ dossierProgramsModule.factory('dossiersProgramStageSectionsFactory', ['$resource
     }
 ]);
 
+var qryProgramIndicators = dhisUrl + 'programs/:programId.json?fields=programIndicators[displayName,displayDescription,expression,filter]';
+
 dossierProgramsModule.factory('dossiersProgramIndicatorsFactory', ['$resource',
     function($resource) {
         return $resource(qryProgramIndicators, {
@@ -51,6 +53,8 @@ dossierProgramsModule.factory('dossiersProgramIndicatorsFactory', ['$resource',
         });
     }
 ]);
+
+var qryProgramIndicatorExpressions = dhisUrl + 'programIndicators/expression/description'
 
 dossierProgramsModule.factory('dossiersProgramExpressionFactory', ['$resource',
     function($resource) {
@@ -65,6 +69,8 @@ dossierProgramsModule.factory('dossiersProgramExpressionFactory', ['$resource',
     }
 ]);
 
+var qryProgramIndicatorFilters = dhisUrl + 'programIndicators/filter/description'
+
 dossierProgramsModule.factory('dossiersProgramFilterFactory', ['$resource',
     function($resource) {
         return $resource(qryProgramIndicatorFilters, {
@@ -78,11 +84,53 @@ dossierProgramsModule.factory('dossiersProgramFilterFactory', ['$resource',
     }
 ]);
 
-dossierProgramsModule.factory('dossiersProgramStageFactory', ['$resource',
+
+var qryProgramGlobalIndicators = dhisUrl + 'indicators?fields=displayName,indicatorType[displayName],description,numerator,numeratorDescription,denominator,denominatorDescription&paging=false'
+
+datasetsModule.factory('programGlobalIndicators', ['$resource',
     function($resource) {
-        return $resource(qryProgramStages,{
+        return $resource(qryProgramGlobalIndicators, {}, {
+            query: {
+                method: 'GET',
+                isArray: false
+            }
+        });
+    }
+]);
+
+var qryProgramIndicatorExpression = dhisUrl + 'expressions/description?expression=:expression'
+
+datasetsModule.factory('programIndicatorExpression', ['$resource',
+    function($resource) {
+        return $resource(qryProgramIndicatorExpression, {
+            expression: '@expression'
+        }, {
+            query: {
+                method: 'GET',
+                isArray: false
+            }
+        });
+    }
+]);
+
+dossierProgramsModule.factory('dossiersProgramEventReportFactory', ['$resource',
+    function($resource) {
+        return $resource(qryEventReports, {
             programId: '@programId'
-        },{
+        }, {
+            query: {
+                method: 'GET',
+                isArray: false
+            }
+        });
+    }
+]);
+
+dossierProgramsModule.factory('dossiersProgramEventChartFactory', ['$resource',
+    function($resource) {
+        return $resource(qryEventCharts, {
+            programId: '@programId'
+        }, {
             query: {
                 method: 'GET',
                 isArray: false
