@@ -1,6 +1,6 @@
 appModule.factory('Config', [function() {
 		return {
-			userGroupId: 'mTJVJfBK6RB',
+			userGroupId: 'z9jKg7FEuaT',
 			organisationGroupSetId:'QSiGnQwGi92',
 			blackListDataSetsIds:['YoJjavJ432r','wcCbcAKbP'],
 			blackListIndicatorGroupIds:[],

@@ -41,6 +41,10 @@ appModule.controller('appSharedController', ['$scope', '$translate', '$state', '
 		}
 	}).fail(function() {
 		console.log('appModule: Group of users authorised to administrate has not been defined yet, go to the admin panel!');
+		if(!_.isEmpty(Config.userGroupId)){
+			alert("UserGroupId: UserGroupId mentioned in the config not matching with id present in config");
+			throw new Error("UserGroupId: UserGroupId mentioned in the config not matching with id present in config");
+		}
 		// $scope.show_admin = true;
 		// window.location.href = '#/admin';
 	});
