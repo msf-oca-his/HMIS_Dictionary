@@ -4,7 +4,10 @@ appModule.factory('Config', [function() {
 			organisationGroupSetId:'QSiGnQwGi92',
 			blackListDataSetsIds:['YoJjavJ432r','wcCbcAKbP'],
 			blackListIndicatorGroupIds:[],
-			showUserRelatedFormsOnly:true
+			showUserRelatedFormsOnly:true,
+            showIndicatorFormulaNonAdminUser: true,
+            showIndicatorFormulaAdminUser: false,
+
 		}
 	}
 ]);

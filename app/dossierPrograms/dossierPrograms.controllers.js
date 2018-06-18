@@ -187,7 +187,7 @@ dossierProgramsModule.controller('dossiersProgramIndicatorController', ['$scope'
 }]);
 */
 
-dossierProgramsModule.controller('dossierProgramGlobalIndicatorController', ['$scope', '$translate', 'programGlobalIndicators', 'programIndicatorExpression' , 'Ping', function($scope, $translate, programGlobalIndicators, programIndicatorExpression, Ping) {
+dossierProgramsModule.controller('dossierProgramGlobalIndicatorController', ['$scope', '$translate', 'programGlobalIndicators', 'programIndicatorExpression' , 'Ping','Config', function($scope, $translate, programGlobalIndicators, programIndicatorExpression, Ping,Config) {
     
     $scope.indicators4TOC = {
         displayName: "Indicators",
@@ -238,6 +238,13 @@ dossierProgramsModule.controller('dossierProgramGlobalIndicatorController', ['$s
             startLoadingState(false);
             $scope.indicators = [];
             //Query indicator information
+            var isAdmin = $scope.$parent.$parent.show_admin;
+            $scope.showIndicatorFormula;
+            if(isAdmin) {
+                $scope.showIndicatorFormula = Config.showIndicatorFormulaAdminUser
+            } else {
+                $scope.showIndicatorFormula = Config.showIndicatorFormulaNonAdminUser;
+            }
             
             $scope.allIndicators = programGlobalIndicators.get(function () {   
                 endLoadingState(true);
@@ -254,7 +261,10 @@ dossierProgramsModule.controller('dossierProgramGlobalIndicatorController', ['$s
                         }
                         console.log(m[1]);
                         if (m[1] == $scope.selectedProgram.id) {
-                            if ($scope.indicators.indexOf(indicator) == -1) $scope.indicators.push(indicator);
+                            if ($scope.indicators.indexOf(indicator) == -1) {
+                                if(!$scope.showIndicatorFormula) indicator = _.omit(indicator,['numerator','denominator']);
+                                $scope.indicators.push(indicator);
+                            }
                             return;
                         }
                     }
@@ -265,7 +275,10 @@ dossierProgramsModule.controller('dossierProgramGlobalIndicatorController', ['$s
                             regex.lastIndex++;
                         }
                         if (m[1] == $scope.selectedProgram.id) {
-                            if ($scope.indicators.indexOf(indicator) == -1) $scope.indicators.push(indicator);
+                            if ($scope.indicators.indexOf(indicator) == -1) {
+                                if(!$scope.showIndicatorFormula) indicator = _.omit(indicator,['numerator','denominator']);
+                                $scope.indicators.push(indicator);
+                            }
                             return;
                         }
                     }

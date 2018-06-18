@@ -117,9 +117,9 @@
 						<tr>
 							<th>{{'Name'| translate}}</th>
 							<th>{{'Type'| translate}}</th>
-							<th>{{'Numerator' | translate}}</th>
+							<th ng-if="showIndicatorFormula">{{'Numerator' | translate}}</th>
 							<th>{{'Numerator description'| translate}}</th>
-							<th>{{'Denominator'| translate}}</th>
+							<th ng-if="showIndicatorFormula">{{'Denominator'| translate}}</th>
 							<th>{{'Denominator description' | translate}}</th>
 						</tr>
 					</thead>
@@ -127,9 +127,9 @@
 						<tr ng-repeat="indicator in indicators |  orderBy: 'displayName'">
 							<td>{{indicator.displayName}}</td>
 							<td>{{indicator.indicatorType.displayName}}</td>
-							<td>{{indicator.numerator}}</td>
+							<td ng-if="showIndicatorFormula">{{indicator.numerator}}</td>
 							<td>{{indicator.numeratorDescription}}</td>
-							<td>{{indicator.denominator}}</td>
+							<td ng-if="showIndicatorFormula">{{indicator.denominator}}</td>
 							<td>{{indicator.denominatorDescription}}</td>
 						</tr>
 					</tbody>

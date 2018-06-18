@@ -222,7 +222,7 @@ datasetsModule.controller('datasetCategoryComboController', ['$scope', '$transla
 
 }]);
 
-    datasetsModule.controller('datasetsIndicatorsController', ['$scope', '$translate', 'datasetsIndicatorsFactory', 'datasetsIndicatorExpressionFactory' , 'Ping', function($scope, $translate, datasetsIndicatorsFactory, datasetsIndicatorExpressionFactory, Ping) {
+    datasetsModule.controller('datasetsIndicatorsController', ['$scope', '$translate', 'datasetsIndicatorsFactory', 'datasetsIndicatorExpressionFactory' , 'Ping','Config', function($scope, $translate, datasetsIndicatorsFactory, datasetsIndicatorExpressionFactory, Ping,Config) {
     
     $scope.indicators4TOC = {
         displayName: "Indicators",
@@ -275,7 +275,15 @@ datasetsModule.controller('datasetCategoryComboController', ['$scope', '$transla
             startLoadingState(false);
             $scope.indicators = [];
             //Query indicator information
-            $scope.allIndicators = datasetsIndicatorsFactory.get(function () {     
+            var isAdmin = $scope.$parent.$parent.show_admin;
+            $scope.showIndicatorFormula;
+            if(isAdmin) {
+                $scope.showIndicatorFormula = Config.showIndicatorFormulaAdminUser
+            } else {
+                $scope.showIndicatorFormula = Config.showIndicatorFormulaNonAdminUser;
+            }
+
+            $scope.allIndicators = datasetsIndicatorsFactory.get(function () {
                 endLoadingState(true);
                 $scope.datasetDataElements.dataSetElements.forEach(function(dataElement) {
                     $scope.allIndicators.indicators.forEach(function(indicator) {
@@ -289,7 +297,10 @@ datasetsModule.controller('datasetCategoryComboController', ['$scope', '$transla
                                 regex.lastIndex++;
                             }
                             if (m[1] == dataElement.dataElement.id) {
-                                if ($scope.indicators.indexOf(indicator) == -1) $scope.indicators.push(indicator);
+                                if ($scope.indicators.indexOf(indicator) == -1)  {
+                                    if(!$scope.showIndicatorFormula) indicator = _.omit(indicator,['numerator','denominator']);
+                                    $scope.indicators.push(indicator);
+                                };
                                 return;
                             }
                         }
@@ -300,7 +311,10 @@ datasetsModule.controller('datasetCategoryComboController', ['$scope', '$transla
                                 regex.lastIndex++;
                             }
                             if (m[1] == dataElement.dataElement.id) {
-                                if ($scope.indicators.indexOf(indicator) == -1) $scope.indicators.push(indicator);
+                                if ($scope.indicators.indexOf(indicator) == -1) {
+                                    if(!$scope.showIndicatorFormula) indicator = _.omit(indicator,['numerator','denominator']);
+                                    $scope.indicators.push(indicator);
+                                }
                                 return;
                             }
                         }
