@@ -5,9 +5,9 @@ appModule.factory('Config', [function() {
 			blackListDataSetsIds:['YoJjavJ432r','wcCbcAKbP'],
 			blackListIndicatorGroupIds:[],
 			showUserRelatedFormsOnly:true,
-            showIndicatorFormulaNonAdminUser: true,
-            showIndicatorFormulaAdminUser: false,
-
+            showIndicatorFormulaNonAdminUser: false,
+            showIndicatorFormulaAdminUser: true,
+			defaultValueForShowIndicatorFormula: true
 		}
 	}
 ]);

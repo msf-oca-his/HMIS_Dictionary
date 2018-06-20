@@ -37,7 +37,7 @@ gulp.task(TASKS.serve, function() {
     server: {
       port: 8000,
       baseDir: APP.src.root,
-      middleware: [proxy(['/api', '/dhis-web-commons', '/icons'], {target: 'http://localhost:8080'})]
+      middleware: [proxy(['/api', '/dhis-web-commons', '/icons'], {target: 'http://localhost:8080/'})]
     }
 
   });

@@ -243,7 +243,8 @@ dossierProgramsModule.controller('dossierProgramGlobalIndicatorController', ['$s
             if(isAdmin) {
                 $scope.showIndicatorFormula = Config.showIndicatorFormulaAdminUser
             } else {
-                $scope.showIndicatorFormula = Config.showIndicatorFormulaNonAdminUser;
+                if(!_.isEmpty(Config.userGroupId)) $scope.showIndicatorFormula = Config.showIndicatorFormulaNonAdminUser;
+                else $scope.showIndicatorFormula = Config.defaultValueForShowIndicatorFormula;
             }
             
             $scope.allIndicators = programGlobalIndicators.get(function () {   
