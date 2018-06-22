@@ -40,35 +40,45 @@
 				<table class="sectionElementsTable table table-striped">
 					<thead>
 						<tr>
-							<th>{{'dos_NameElement'| translate}}</th>
-							<th>{{'dos_FormNameElement'| translate}}</th>
-							<th>{{'dos_DescriptionElement'| translate}}</th>
-							<th>{{'DataTypeElement' | translate}}</th>
-							<th>{{'Options' | translate}}</th>
-							<th>{{'Category combination' | translate}}
+							<th ng-if="isConfigureToShow('dos_NameElement')">{{'dos_NameElement'| translate}}</th>
+							<th ng-if="isConfigureToShow('dos_FormNameElement')">{{'dos_FormNameElement'| translate}}</th>
+							<th ng-if="isConfigureToShow('dos_ShortNameElement')">{{'dos_ShortNameElement'| translate}}</th>
+							<th ng-if="isConfigureToShow('dos_CodeElement')">{{'dos_CodeElement'| translate}}</th>
+							<th ng-if="isConfigureToShow('dos_DescriptionElement')">{{'dos_DescriptionElement'| translate}}</th>
+							<th ng-if="isConfigureToShow('DataType Element')">{{'DataType Element' | translate}}</th>
+							<th ng-if="isConfigureToShow('dos_AggregationType')">{{'dos_AggregationType' | translate}}</th>
+							<th ng-if="isConfigureToShow('Options')">{{'Options' | translate}}</th>
+							<th ng-if="isConfigureToShow('Category combination')">{{'Category combination' | translate}}
 						</tr>
 					</thead>
 					<tbody>
 						<tr ng-repeat="dataElement in section.dataElements">
-							<td>{{dataElement.displayName || dataElement.dataElement.displayName}}</td>
-							<td>{{dataElement.displayFormName || dataElement.dataElement.displayFormName}}</td>
-							<td>{{dataElement.displayDescription || dataElement.dataElement.displayDescription}}</td>
-							<td>{{dataElement.valueType || dataElement.dataElement.valueType}}</td>
+							<td ng-if="isConfigureToShow('dos_NameElement')">{{dataElement.displayName ||
+								dataElement.dataElement.displayName}}</td>
+							<td ng-if="isConfigureToShow('dos_FormNameElement')">{{dataElement.displayFormName || dataElement.dataElement.displayFormName}}</td>
+							<td ng-if="isConfigureToShow('dos_ShortNameElement')">{{dataElement.displayShortName || dataElement.dataElement.displayShortName}}</td>
+							<td ng-if="isConfigureToShow('dos_CodeElement')">{{dataElement.code ||
+								dataElement.dataElement.code}}</td>
+							<td ng-if="isConfigureToShow('dos_DescriptionElement')">{{dataElement.displayDescription || dataElement.dataElement.displayDescription}}</td>
+							<td ng-if="isConfigureToShow('DataType Element')">{{dataElement.valueType || dataElement.dataElement.valueType}}</td>
+							<td ng-if="isConfigureToShow('dos_AggregationType')">{{dataElement.aggregationType ||
+								dataElement.dataElement.aggregationType}}</td>
 							<!--choose between having or not having section-->
-							<td ng-if="dataElement.displayName"><ul>
+							<td ng-if="dataElement.displayName && isConfigureToShow('Options')"><ul>
 								<li ng-repeat="option in dataElement.optionSet.options">
 								<div>{{option.displayName || "-"}}</div>
 								</li>
 								</ul>
 							</td>
-							<td ng-if="!dataElement.displayName"><ul>
+							<td ng-if="!dataElement.displayName && isConfigureToShow('Options')"><ul>
 								<li ng-repeat="option in dataElement.dataElement.optionSet.options">
 								<div>{{option.displayName || "-"}}</div>
 								</li>
 								</ul>
 							</td>
 							<!-- -->
-							<td ng-init="categoryCombo=getCategoryCombination(dataElement.id || dataElement.dataElement.id, $parent.$index, $index)"><a href="" class="pageref" ng-click="scrollTo(categoryCombo.id)" target="_self">{{categoryCombo.displayName}}</a></td>
+							<td ng-if="isConfigureToShow('Category combination')"
+									ng-init="categoryCombo=getCategoryCombination(dataElement.id || dataElement.dataElement.id, $parent.$index, $index)"><a href="" class="pageref" ng-click="scrollTo(categoryCombo.id)" target="_self">{{categoryCombo.displayName}}</a></td>
 						</tr>
 					</tbody>
 				</table>

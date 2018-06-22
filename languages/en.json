@@ -32,6 +32,9 @@
     "dos_Number of Elements in Section": "Number of Data Elements in Section",
     "dos_NameElement": "Name",
     "dos_FormNameElement": "Form Name",
+    "dos_ShortNameElement": "Short Name",
+    "dos_CodeElement": "Code",
+    "dos_AggregationType": "Aggregation Type",
     "dos_DescriptionElement": "Description",
 
     "dos_Number of Indicators in Group": "Number of Indicators in Indicator Group",

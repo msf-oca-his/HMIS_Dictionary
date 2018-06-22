@@ -64,7 +64,8 @@ dossiersModule.factory('dossiersServiceIndicatorGrpsFactory', ['$resource',
     }
 ]);
 
-var qryServiceSections = dhisUrl + 'dataSets/:datasetId.json?fields=sections[dataSet,id,displayName,dataElements[id,displayName,displayFormName,displayDescription]]';
+//var qryServiceSections = dhisUrl + 'sections.json?fields=displayName,id,dataElements[id]&paging=false&filter=dataSet.id\\:eq\\::datasetId';
+var qryServiceSections = dhisUrl + 'dataSets/:datasetId.json?fields=sections[dataSet,id,displayName,dataElements[id,displayName,displayFormName,displayShortName,displayDescription]]';
 
 dossiersModule.factory('dossiersSectionsFactory', ['$resource',
     function($resource) {

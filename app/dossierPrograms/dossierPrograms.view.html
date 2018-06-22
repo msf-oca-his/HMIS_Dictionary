@@ -45,39 +45,43 @@
 			<div ng-bind-html="trustAsHtml(selectedProgram.displayDescription)"></div>
 		</div>
 
-		<div id="stageContainer" ng-controller="dossiersProgramSectionController">
-			<div class="col-md-12" ng-repeat="stage in stages | orderBy:'sortOrder'">
-				<h2 class="stage" id="{{stage.id}}">{{stage.displayName}}</h2>
-				<div class="col-md-12" ng-repeat="section in stage.programStageSections">
-					<h3 class="section" id="{{section.id}}">{{section.displayName}}</h3>
-					<p>{{'Number of Elements in Section'| translate}}: {{section.dataElements.length}}</p>
-					<table class="sectionElementsTable table table-striped">
-						<thead>
-							<tr>
-								<th>{{'dos_NameElement'| translate}}</th>
-								<th>{{'dos_FormNameElement'| translate}}</th>
-								<th>{{'dos_DescriptionElement'| translate}}</th>
-								<th>{{'DataTypeElement' | translate}}</th>
-								<th>{{'Options' | translate}}</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr ng-repeat="dataElement in section.dataElements">
-								<td>{{dataElement.displayName}}</td>
-								<td>{{dataElement.displayFormName}}</td>
-								<td>{{dataElement.displayDescription}}</td>
-								<td>{{dataElement.valueType}}</td>
-								<td>
-									<select ng-if="dataElement.optionSet.options" class="form-control col-md-2">
-										<option selected>See options</option>
-										<option ng-repeat="option in dataElement.optionSet.options">{{option.displayName}}</option>
-									</select>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-
-				</div>
+		<div id="sectionContainer"  ng-model="sectionList" ng-controller="dossiersProgramSectionController">
+			<div class="col-md-12"  ng-repeat="section in sections.programStageSections">
+				<h3 class="section" id="{{section.id}}">{{section.displayName}}</h3>
+				<p>{{'Number of Elements in Section'| translate}}: {{section.programStageDataElements.length}}</p>
+				<table class="sectionElementsTable table table-striped">
+					<thead>
+						<tr>
+							<th ng-if="isConfigureToShow('dos_NameElement')">{{'dos_NameElement'| translate}}</th>
+							<th ng-if="isConfigureToShow('dos_FormNameElement')">{{'dos_FormNameElement'|
+								translate}}</th>
+							<th ng-if="isConfigureToShow('dos_ShortNameElement')">{{'dos_ShortNameElement'| translate}}</th>
+							<th ng-if="isConfigureToShow('dos_CodeElement')">{{'dos_CodeElement'| translate}}</th>
+							<th ng-if="isConfigureToShow('dos_DescriptionElement')">{{'dos_DescriptionElement'| translate}}</th>
+							<th ng-if="isConfigureToShow('DataType Element')">{{'DataType Element' | translate}}</th>
+							<th ng-if="isConfigureToShow('Options')">{{'Options' | translate}}</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="dataElement in section.programStageDataElements">
+							<td ng-if="isConfigureToShow('dos_NameElement')">{{dataElement.dataElement.displayName}}</td>
+							<td ng-if="isConfigureToShow('dos_FormNameElement')">{{dataElement.dataElement
+								.displayFormName}}</td>
+							<td ng-if="isConfigureToShow('dos_ShortNameElement')">{{dataElement.dataElement
+								.displayShortName}}</td>
+							<td ng-if="isConfigureToShow('dos_CodeElement')">{{dataElement.dataElement
+								.code}}</td>
+							<td ng-if="isConfigureToShow('dos_DescriptionElement')">{{dataElement.dataElement.displayDescription}}</td>
+							<td ng-if="isConfigureToShow('DataType Element')">{{dataElement.dataElement.valueType}}</td>
+							<td ng-if="isConfigureToShow('Options')"><ul>
+								<li ng-repeat="option in dataElement.dataElement.optionSet.options">
+								<div>{{option.displayName}}</div>
+								</li>
+								</ul>
+							</td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
 		</div>
 

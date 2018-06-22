@@ -116,7 +116,7 @@ function($scope, $translate, $anchorScroll, datasetsFactory, datasetsDataelement
  *  @name dossiersSectionController
  *  @description Updates the TOC with sections
  */
-datasetsModule.controller('datasetSectionController', ['$scope', '$translate', 'datasetsDataelementsFactory', 'Ping', function($scope, $translate, datasetsDataelementsFactory, Ping) {
+datasetsModule.controller('datasetSectionController', ['$scope', '$translate', 'datasetsDataelementsFactory', 'Ping', 'Config', function($scope, $translate, datasetsDataelementsFactory, Ping, Config) {
         
     $scope.stages4TOC = {
         displayName: "",
@@ -184,6 +184,15 @@ datasetsModule.controller('datasetSectionController', ['$scope', '$translate', '
         var CCID = result.id;
         if ($scope.categoryComboIDs.indexOf(CCID) == -1) $scope.categoryComboIDs.push(CCID);
         return result;
+    };
+
+    $scope.isConfigureToShow = function (field) {
+        var showColumns = (Config.dataset && Config.dataset.show) || [];
+        var fieldName = $translate.instant(field);
+        if (showColumns.length == 0) {
+            return true;
+        }
+        return (showColumns.indexOf(fieldName) >= 0) ? true : false;
     }
 }]);
 

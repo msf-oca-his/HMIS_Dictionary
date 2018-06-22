@@ -7,7 +7,16 @@ appModule.factory('Config', [function() {
 			showUserRelatedFormsOnly:true,
             showIndicatorFormulaNonAdminUser: false,
             showIndicatorFormulaAdminUser: true,
-			defaultValueForShowIndicatorFormula: true
+			defaultValueForShowIndicatorFormula: true,
+			// Available: Name, Form Name, Short Name, Code, Description, DataType Element,	Aggregation Type,
+			// 	Options, Category combination
+			dataset: {
+                show: ['Name', 'Short Name', 'Description', 'DataType Element', 'Aggregation Type', 'Options', 'Category combination']
+            },
+            // Available: Name, Form Name, Short Name, Code, Description, DataType Element, Options
+            program: {
+                show: ['Name', 'Short Name', 'Description', 'DataType Element', 'Aggregation Type', 'Options']
+            }
 		}
 	}
 ]);

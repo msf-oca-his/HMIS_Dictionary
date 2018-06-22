@@ -76,8 +76,14 @@ function($scope, $translate, $anchorScroll, $sce, dossiersProgramsFactory, dossi
     });
 }]);
 
-dossierProgramsModule.controller('dossiersProgramSectionController', ['$scope', '$q', '$translate', 'dossiersProgramStageSectionsFactory', 'Ping',
-function($scope, $q, $translate, dossiersProgramStageSectionsFactory, Ping) {
+dossierProgramsModule.controller('dossiersProgramSectionController', ['$scope', '$translate','dossiersProgramStageFactory','dossiersProgramStageSectionsFactory', 'Ping', 'Config',
+function($scope, $translate,dossiersProgramStageFactory,dossiersProgramStageSectionsFactory, Ping, Config) {
+
+    $scope.stages4TOC = {
+        displayName: "",
+        id: "sectionContainer",
+        index: '0'
+    };
 
     $scope.$watch('selectedProgram', function() {
         ping();
@@ -127,6 +133,14 @@ function($scope, $q, $translate, dossiersProgramStageSectionsFactory, Ping) {
         return stage;
     }
 
+    $scope.isConfigureToShow = function (field) {
+        var showColumns = (Config.program && Config.program.show) || [];
+        var fieldName = $translate.instant(field);
+        if (showColumns.length == 0) {
+            return true;
+        }
+        return (showColumns.indexOf(fieldName) >= 0) ? true : false;
+    }
 }]);
 
 
