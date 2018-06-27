@@ -7,7 +7,7 @@ var qryPrograms = dhisUrl + 'programs.json?fields=id,displayName,displayDescript
 
 var qryProgramStages = dhisUrl + 'programs/:programId.json?fields=programStages[id]&paging=false';
 
-var qryProgramStageSections = dhisUrl + 'programStages/:programStageId.json?fields=programStageSections[id,displayName,programStageDataElements[dataElement[' + encodeURIComponent(":all") + '[options[displayName]]]]],programStageDataElements[dataElement[' + encodeURIComponent(":all") + '[options[displayName]]]&paging=false';
+var qryProgramStageSections = dhisUrl + 'programStages/:programStageId.json?fields=displayName,programStageSections[id,displayName,programStageDataElements[dataElement[' + encodeURIComponent(":all") + '[options[displayName]]]]],programStageDataElements[dataElement[' + encodeURIComponent(":all") + '[options[displayName]]]&paging=false';
 
 var qryProgramIndicators = dhisUrl + 'programs/:programId.json?fields=programIndicators[displayName,displayDescription,expression,filter]';
 

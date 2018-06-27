@@ -76,8 +76,8 @@ function($scope, $translate, $anchorScroll, $sce, dossiersProgramsFactory, dossi
     });
 }]);
 
-dossierProgramsModule.controller('dossiersProgramSectionController', ['$scope', '$translate','dossiersProgramStageFactory','dossiersProgramStageSectionsFactory', 'Ping', 'Config',
-function($scope, $translate,dossiersProgramStageFactory,dossiersProgramStageSectionsFactory, Ping, Config) {
+dossierProgramsModule.controller('dossiersProgramSectionController', ['$scope', '$q', '$translate','dossiersProgramStageSectionsFactory', 'Ping', 'Config',
+function($scope, $q, $translate,dossiersProgramStageSectionsFactory, Ping, Config) {
 
     $scope.stages4TOC = {
         displayName: "",
@@ -147,13 +147,11 @@ function($scope, $translate,dossiersProgramStageFactory,dossiersProgramStageSect
 
 /** 
 dossierProgramsModule.controller('dossiersProgramIndicatorController', ['$scope', 'dossiersProgramExpressionFactory', 'dossiersProgramFilterFactory', 'dossiersProgramIndicatorsFactory', function($scope, dossiersProgramExpressionFactory, dossiersProgramFilterFactory, dossiersProgramIndicatorsFactory) {
-
     $scope.indicators4TOC = {
         displayName: "Program indicators",
         id: "IndicatorGroupsContainer",
         index: 97
         };
-
     //gets the "readable" expressions for each indicator expression
     recursiveAssignExpression = function(i) {
         if (i >= $scope.indicators.programIndicators.length) return;
