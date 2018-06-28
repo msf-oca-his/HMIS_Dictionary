@@ -76,8 +76,8 @@ function($scope, $translate, $anchorScroll, $sce, dossiersProgramsFactory, dossi
     });
 }]);
 
-dossierProgramsModule.controller('dossiersProgramSectionController', ['$scope', '$q', '$translate','dossiersProgramStageSectionsFactory', 'Ping', 'Config',
-function($scope, $q, $translate,dossiersProgramStageSectionsFactory, Ping, Config) {
+dossierProgramsModule.controller('dossiersProgramSectionController', ['$scope', '$q', '$translate','dossiersProgramStageSectionsFactory', 'dossiersProgramStageFactory', 'Ping', 'Config',
+function($scope, $q, $translate,dossiersProgramStageSectionsFactory, dossiersProgramStageFactory, Ping, Config) {
 
     $scope.stages4TOC = {
         displayName: "",
@@ -85,29 +85,40 @@ function($scope, $q, $translate,dossiersProgramStageSectionsFactory, Ping, Confi
         index: '0'
     };
 
+    var performWithProgramStages = function (programStages) {
+        var stageSectionPromises = programStages.map(function (stage) {
+            return dossiersProgramStageSectionsFactory.get({programStageId: stage.id}).$promise;
+        });
+        $q.all(stageSectionPromises).then(function (stages) {
+            $scope.stages = stages.map(function (stage, index) {
+                var toc = {
+                    displayName: "Stage: " + stage.displayName + (stage.repeatable ? " (Repeatable)" : ""),
+                    id: stage.id,
+                    index: index
+                };
+                if(stage.programStageSections.length == 0)
+                    return createStageWithoutSections(stage, toc);
+                else
+                    return createStageWithSections(stage, toc);
+            });
+            endLoadingState(true);
+        });
+    };
+
     $scope.$watch('selectedProgram', function() {
         ping();
         if ($scope.selectedProgram) {
             startLoadingState(false);
             //Query sections and data elements
-            var stageSectionPromises = $scope.selectedProgram.programStages.map(function (stage) {
-                return dossiersProgramStageSectionsFactory.get({programStageId: stage.id}).$promise;
-            });
-
-            $q.all(stageSectionPromises).then(function (stages) {
-                $scope.stages = stages.map(function (stage, index) {
-                    var toc = {
-                        displayName: "Stage: " + stage.displayName + (stage.repeatable ? " (Repeatable)" : ""),
-                        id: stage.id,
-                        index: index
-                    };
-                    if(stage.programStageSections.length == 0) 
-                        return createStageWithoutSections(stage, toc);
-                    else 
-                        return createStageWithSections(stage, toc);
-                });
-                endLoadingState(true);
-            });
+            if ($scope.selectedProgram.programStages) {
+                performWithProgramStages($scope.selectedProgram.programStages);
+            } else {
+                dossiersProgramStageFactory.query({
+                    programId: $scope.selectedProgram.id
+                }, function (response) {
+                    performWithProgramStages(response.programStages);
+                })
+            }
         }
     });
 

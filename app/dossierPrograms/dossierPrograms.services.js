@@ -141,3 +141,16 @@ dossierProgramsModule.factory('dossiersProgramEventChartFactory', ['$resource',
         });
     }
 ]);
+
+dossierProgramsModule.factory('dossiersProgramStageFactory', ['$resource',
+    function($resource) {
+        return $resource(qryProgramStages,{
+            programId: '@programId'
+        },{
+            query: {
+                method: 'GET',
+                isArray: false
+            }
+        });
+    }
+]);
