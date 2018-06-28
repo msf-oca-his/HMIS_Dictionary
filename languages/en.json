@@ -36,6 +36,8 @@
     "dos_CodeElement": "Code",
     "dos_AggregationType": "Aggregation Type",
     "dos_DescriptionElement": "Description",
+    "dos_DataType_Element": "DataType Element",
+    "dos_options": "Options",
 
     "dos_Number of Indicators in Group": "Number of Indicators in Indicator Group",
     "dos_NameIndicator": "Name",
