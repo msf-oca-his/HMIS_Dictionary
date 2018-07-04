@@ -51,21 +51,37 @@ function($scope, $translate, $anchorScroll, $sce, dossiersProgramsFactory, dossi
       .value();
   };
 
+  var removeProgramsToHide = function (programs) {
+      if(Config.customAttributes && Config.customAttributes.hideOnDictionary){
+          return _.filter(programs,function(program){
+            if(program.attributeValues){
+            console.log(program.attributeValues,'========',program.name)
+                let attributeValues =  _.map(program.attributeValues,"attribute");
+                return !_.some(attributeValues,["id",Config.customAttributes.hideOnDictionary.id]);
+            }
+            return true;
+          })
+      }
+      return programs;
+  }
+
   if(Config.showUserRelatedFormsOnly) {
     currentUserOrganisationUnitsFactory.query(function(response) {
-      var dataSets = _(response)
+      var templates = _(response)
         .map('programs')
         .flatten()
         .value();
-      $scope.programs = removeEmptyAndDuplicateTemplates(dataSets);
-      endLoadingState(true);
+      programs = removeEmptyAndDuplicateTemplates(templates);
+      $scope.programs = removeProgramsToHide(programs);
     });
   } else {
     dossiersProgramsFactory.get().$promise.then(function(data) {
-      $scope.programs = data.programs;
-      endLoadingState(true);
+      programs = data.programs;
+      $scope.programs = removeProgramsToHide(programs);
     })
+
   }
+  endLoadingState(true);
 
     //Clear the TOC
     $scope.$watch('selectedProgram', function() {

@@ -54,34 +54,33 @@ function($scope, $translate, $anchorScroll, datasetsFactory, datasetsDataelement
           .uniqBy('id')
           .value();
     };
-    
-    var removeBlackListDataSets = function(templates) {
-        return _(templates) 
-          .filter(function(template) {
-              return Config.blackListDataSetsIds.indexOf(template.id) < 0;
-          })
-          .value()
-    
-    };
 
+    var removeDataSetsToHide = function (dataSets) {
+    if(Config.customAttributes && Config.customAttributes.hideOnDictionary){
+        return _.filter(dataSets,function(dataset){
+            return !_.some(dataset.attributeValues,function(attribute){
+                return (attribute.attribute.id == Config.customAttributes.hideOnDictionary.id) && (attribute.value == "true");
+            })
+        })
+    }
+    return dataSets;
+    }
 
-    
-    //showing the datasets based on logged in user
+    //showing the datasets based on logged in user and custom attribute
     if(Config.showUserRelatedFormsOnly) {
         currentUserOrganisationUnitsFactory.query(function(response) {
             var dataSets = _(response)
               .map('dataSets')
               .flatten()
               .value();
-            $scope.datasets = removeBlackListDataSets(removeEmptyAndDuplicateTemplates(dataSets));
-            endLoadingState(true);
+            $scope.datasets = removeDataSetsToHide(removeEmptyAndDuplicateTemplates(dataSets));
         });
     } else {
         datasetsFactory.get({blackList: Config.blackListDataSetsIds}).$promise.then(function(data) {
             $scope.datasets = data.dataSets;
-            endLoadingState(true);
         })
     }
+    endLoadingState(true);
 
     $scope.datasetDataElements = {};
 

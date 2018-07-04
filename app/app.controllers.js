@@ -49,6 +49,26 @@ appModule.controller('appSharedController', ['$scope', '$translate', '$state', '
 		// window.location.href = '#/admin';
 	});
 
+	//Validating Custom Attribute
+    if(Config.customAttributes && Config.customAttributes.hideOnDictionary){
+        if(Config.customAttributes.hideOnDictionary.id && Config.customAttributes.hideOnDictionary.id !=""){
+            jQuery.ajax({
+                url: dhisUrl + 'attributes/' + Config.customAttributes.hideOnDictionary.id + '.json?fields=name,id&paging=false',
+                contentType: 'json',
+                method: 'GET',
+                dataType: 'json',
+                async: false
+            }).fail(function() {
+                if(!_.isEmpty(Config.userGroupId)){
+                    alert("CustomAttributeId: CustomAttributeId mentioned in the config not matching with id present in config");
+                    throw new Error("CustomAttributeId: CustomAttributeId mentioned in the config not matching with id present in config");
+                }
+            });
+        } else {
+            alert("HideOnDictionaryId: The specified UID is not exist in system. Please contact your administrator");
+            throw new Error("HideOnDictionaryId: The specified UID is not exist in system.");
+        }
+    }
 	/* For services list */
 	jQuery.ajax({
 		url: dhisUrl + 'organisationUnitGroupSets/' + Config.organisationGroupSetId + '.json?fields=name,id&paging=false',

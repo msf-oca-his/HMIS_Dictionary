@@ -16,6 +16,12 @@ appModule.factory('Config', [function() {
             // Available: Name, Form Name, Short Name, Code, Description, DataType Element, Options
             program: {
                 show: ['Name', 'Short Name', 'Description', 'DataType Element', 'Aggregation Type', 'Options']
+            },
+            customAttributes: {
+                hideOnDictionary: {
+                    id:'sLiEwi7A90U',
+                    associatedWith:['dataElement','Programs']
+               }
             }
 		}
 	}
