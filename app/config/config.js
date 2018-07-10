@@ -19,7 +19,7 @@ appModule.factory('Config', [function() {
             },
             customAttributes: {
                 hideOnDictionary: {
-                    id:'sLiEwi7A90U',
+                    id:'AvNq8fW4evL',
                     associatedWith:['dataElement','Programs']
                }
             }
