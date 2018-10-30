@@ -60,13 +60,13 @@ appModule.controller('appSharedController', ['$scope', '$translate', '$state', '
                 async: false
             }).fail(function() {
                 if(!_.isEmpty(Config.userGroupId)){
-                    alert("CustomAttributeId: CustomAttributeId mentioned in the config not matching with id present in config");
-                    throw new Error("CustomAttributeId: CustomAttributeId mentioned in the config not matching with id present in config");
+                    alert("The UIDs you provided in the configuration file for customising the behavior of the app and the content could not be found in DHIS2.");
+                    throw new Error("The UIDs you provided in the configuration file for customising the behavior of the app and the content could not be found in DHIS2.");
                 }
             });
         } else {
-            alert("HideOnDictionaryId: The specified UID is not exist in system. Please contact your administrator");
-            throw new Error("HideOnDictionaryId: The specified UID is not exist in system.");
+            alert("The custom attribute UID for hiding data sets/programs provided in the configuration file could not be found in DHIS2.");
+            throw new Error("The custom attribute UID for hiding data sets/programs provided in the configuration file could not be found in DHIS2.");
         }
     }
 	/* For services list */
