@@ -55,7 +55,6 @@ function($scope, $translate, $anchorScroll, $sce, dossiersProgramsFactory, dossi
       if(Config.customAttributes && Config.customAttributes.hideOnDictionary){
           return _.filter(programs,function(program){
             if(program.attributeValues){
-            console.log(program.attributeValues,'========',program.name)
                 let attributeValues =  _.map(program.attributeValues,"attribute");
                 return !_.some(attributeValues,["id",Config.customAttributes.hideOnDictionary.id]);
             }
