@@ -142,7 +142,7 @@ function($scope, $q, $translate,dossiersProgramStageSectionsFactory, dossiersPro
         // Line to make it compatible with view
         stage.programStageSections = [{
             displayName: "Data Elements",
-            dataElements: stage.programStageDataElements.map(function(stageDataElement) {
+            dataElements: stage.dataElements.map(function(stageDataElement) {
                 return stageDataElement.dataElement;
             })
         }];
