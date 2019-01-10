@@ -55,7 +55,6 @@ function($scope, $translate, $anchorScroll, $sce, dossiersProgramsFactory, dossi
       if(Config.customAttributes && Config.customAttributes.hideOnDictionary){
           return _.filter(programs,function(program){
             if(program.attributeValues){
-            console.log(program.attributeValues,'========',program.name)
                 let attributeValues =  _.map(program.attributeValues,"attribute");
                 return !_.some(attributeValues,["id",Config.customAttributes.hideOnDictionary.id]);
             }
@@ -142,7 +141,7 @@ function($scope, $q, $translate,dossiersProgramStageSectionsFactory, dossiersPro
         // Line to make it compatible with view
         stage.programStageSections = [{
             displayName: "Data Elements",
-            dataElements: stage.programStageDataElements.map(function(stageDataElement) {
+            dataElements: stage.dataElements.map(function(stageDataElement) {
                 return stageDataElement.dataElement;
             })
         }];
