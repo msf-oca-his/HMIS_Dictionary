@@ -90,7 +90,7 @@ dossierProgramsModule.factory('dossiersProgramFilterFactory', ['$resource',
 ]);
 
 
-var qryProgramGlobalIndicators = dhisUrl + 'indicators?fields=displayName,indicatorType[displayName],description,numerator,numeratorDescription,denominator,denominatorDescription&paging=false'
+var qryProgramGlobalIndicators = dhisUrl + 'indicators?fields=id,displayName,indicatorType[displayName],description,numerator,numeratorDescription,denominator,denominatorDescription&paging=false'
 
 datasetsModule.factory('programGlobalIndicators', ['$resource',
     function($resource) {

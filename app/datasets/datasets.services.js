@@ -47,7 +47,7 @@ datasetsModule.factory('datasetsCategoryCombosFactory', ['$resource',
     }
 ]);
 
-var qryDatasetIndicators = dhisUrl + 'indicators?fields=displayName,indicatorType[displayName],description,numerator,numeratorDescription,denominator,denominatorDescription&paging=false'
+var qryDatasetIndicators = dhisUrl + 'indicators?fields=id,displayName,indicatorType[displayName],description,numerator,numeratorDescription,denominator,denominatorDescription&paging=false'
 
 datasetsModule.factory('datasetsIndicatorsFactory', ['$resource',
     function($resource) {

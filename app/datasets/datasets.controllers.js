@@ -329,6 +329,9 @@ datasetsModule.controller('datasetCategoryComboController', ['$scope', '$transla
                         }
                     }, this);
                 }, this);
+                 //to remove duplicate indicators
+                 $scope.indicators = _.uniqBy($scope.indicators, 'id')
+
                 if ($scope.indicators.length > 0) {
                     addtoTOC($scope.toc, null, $scope.indicators4TOC, "Indicators");
                     recursiveAssignNumerator(0);
