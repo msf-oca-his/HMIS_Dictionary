@@ -54,11 +54,9 @@ function($scope, $translate, $anchorScroll, $sce, dossiersProgramsFactory, dossi
   var removeProgramsToHide = function (programs) {
       if(Config.customAttributes && Config.customAttributes.hideOnDictionary){
           return _.filter(programs,function(program){
-            if(program.attributeValues){
-                let attributeValues =  _.map(program.attributeValues,"attribute");
-                return !_.some(attributeValues,["id",Config.customAttributes.hideOnDictionary.id]);
-            }
-            return true;
+              return !_.some(program.attributeValues,function(attribute){
+                  return (attribute.attribute.id == Config.customAttributes.hideOnDictionary.id) && (attribute.value == "true");
+              })
           })
       }
       return programs;
