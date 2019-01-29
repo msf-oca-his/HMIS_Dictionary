@@ -298,7 +298,7 @@ dossierProgramsModule.controller('dossierProgramGlobalIndicatorController', ['$s
                         }
                         console.log(m[1]);
                         if (m[1] == $scope.selectedProgram.id) {
-                            if ($scope.indicators.indexOf(indicator) == -1) {
+                            if (_.find($scope.indicators, {'id': indicator.id}) == undefined) {
                                 if(!$scope.showIndicatorFormula) indicator = _.omit(indicator,['numerator','denominator']);
                                 $scope.indicators.push(indicator);
                             }
@@ -312,7 +312,7 @@ dossierProgramsModule.controller('dossierProgramGlobalIndicatorController', ['$s
                             regex.lastIndex++;
                         }
                         if (m[1] == $scope.selectedProgram.id) {
-                            if ($scope.indicators.indexOf(indicator) == -1) {
+                            if (_.find($scope.indicators, {'id': indicator.id}) == undefined) {
                                 if(!$scope.showIndicatorFormula) indicator = _.omit(indicator,['numerator','denominator']);
                                 $scope.indicators.push(indicator);
                             }
@@ -320,8 +320,6 @@ dossierProgramsModule.controller('dossierProgramGlobalIndicatorController', ['$s
                         }
                     }
                 }, this);
-                 //to remove duplicate indicators
-                 $scope.indicators = _.uniqBy($scope.indicators, 'id')
 
                 if ($scope.indicators.length > 0) {
                     addtoTOC($scope.toc, null, $scope.indicators4TOC, "Indicators");
