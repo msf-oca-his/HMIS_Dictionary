@@ -306,7 +306,7 @@ datasetsModule.controller('datasetCategoryComboController', ['$scope', '$transla
                                 regex.lastIndex++;
                             }
                             if (m[1] == dataElement.dataElement.id) {
-                                if ($scope.indicators.indexOf(indicator) == -1)  {
+                                if (_.find($scope.indicators, {'id': indicator.id}) == undefined)  {
                                     if(!$scope.showIndicatorFormula) indicator = _.omit(indicator,['numerator','denominator']);
                                     $scope.indicators.push(indicator);
                                 };
@@ -320,7 +320,7 @@ datasetsModule.controller('datasetCategoryComboController', ['$scope', '$transla
                                 regex.lastIndex++;
                             }
                             if (m[1] == dataElement.dataElement.id) {
-                                if ($scope.indicators.indexOf(indicator) == -1) {
+                                if (_.find($scope.indicators, {'id': indicator.id}) == undefined) {
                                     if(!$scope.showIndicatorFormula) indicator = _.omit(indicator,['numerator','denominator']);
                                     $scope.indicators.push(indicator);
                                 }
@@ -329,8 +329,6 @@ datasetsModule.controller('datasetCategoryComboController', ['$scope', '$transla
                         }
                     }, this);
                 }, this);
-                 //to remove duplicate indicators
-                 $scope.indicators = _.uniqBy($scope.indicators, 'id')
 
                 if ($scope.indicators.length > 0) {
                     addtoTOC($scope.toc, null, $scope.indicators4TOC, "Indicators");
