@@ -11,6 +11,16 @@ APP = {
   },
 };
 
+GitHooks = {
+  scripts: {
+    all: "githooks/*"
+  },
+  defaultFolder: {
+    root: ".git/hooks/"
+  }
+
+};
+
 TASKS = {
   watchSrc: '_watchSrc',
   cleanTemp: '_cleanTemp',
@@ -20,8 +30,15 @@ TASKS = {
   setUpTemp: '_setUpTemp',
   reload: '_reload',
   webpackTest: '_webpackTest',
+  setupGitHooks: 'setupGitHooks',
   pack: 'pack',
 };
+
+gulp.task(TASKS.setupGitHooks, function() {
+  gulp.src(GitHooks.scripts.all)
+      .pipe(chmod(700))
+      .pipe(gulp.dest(GitHooks.defaultFolder.root))
+});
 
 gulp.task(TASKS.reload, function() {
   browserSync.reload();
