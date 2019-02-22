@@ -1,6 +1,6 @@
 {
   "name": "hmis-dictionary",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "(02/03/2017)",
   "main": "index.js",
   "directories": {
@@ -14,7 +14,6 @@
   "version_files": [
     "manifest.webapp"
   ],
-
   "repository": {
     "type": "git",
     "url": "git+https://github.com/DWB-eHealth/HMIS_Dictionary.git"
