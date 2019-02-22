@@ -1,8 +1,9 @@
-var gulp = require('gulp');
-  zip = require('gulp-zip');
-  browserSync = require('browser-sync').create(),
-  gulpsync    = require('gulp-sync')(gulp),
-  proxy       = require('http-proxy-middleware'),
+var   gulp = require('gulp');
+      zip = require('gulp-zip');
+      browserSync = require('browser-sync').create(),
+      gulpsync    = require('gulp-sync')(gulp),
+      proxy       = require('http-proxy-middleware'),
+      chmod       = require('gulp-chmod'),
 
 APP = {
   src: {
