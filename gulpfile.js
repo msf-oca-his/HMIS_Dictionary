@@ -1,14 +1,25 @@
-var gulp = require('gulp');
-  zip = require('gulp-zip');
-  browserSync = require('browser-sync').create(),
-  gulpsync    = require('gulp-sync')(gulp),
-  proxy       = require('http-proxy-middleware'),
+var   gulp = require('gulp');
+      zip = require('gulp-zip');
+      browserSync = require('browser-sync').create(),
+      gulpsync    = require('gulp-sync')(gulp),
+      proxy       = require('http-proxy-middleware'),
+      chmod       = require('gulp-chmod'),
 
 APP = {
   src: {
     root: ".",
     all: "**/**/*.*",
   },
+};
+
+GitHooks = {
+  scripts: {
+    all: "githooks/*"
+  },
+  defaultFolder: {
+    root: ".git/hooks/"
+  }
+
 };
 
 TASKS = {
@@ -20,8 +31,15 @@ TASKS = {
   setUpTemp: '_setUpTemp',
   reload: '_reload',
   webpackTest: '_webpackTest',
+  setupGitHooks: 'setupGitHooks',
   pack: 'pack',
 };
+
+gulp.task(TASKS.setupGitHooks, function() {
+  gulp.src(GitHooks.scripts.all)
+      .pipe(chmod(700))
+      .pipe(gulp.dest(GitHooks.defaultFolder.root))
+});
 
 gulp.task(TASKS.reload, function() {
   browserSync.reload();
